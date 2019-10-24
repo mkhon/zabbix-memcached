@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2019-10-24T06:47:10Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template App Memcached</template>
+            <name>Template App Memcached</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Memcached</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Memcached Bytes</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.bytes</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT bytes (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached Cmd Get</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.cmd_get</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT cmd_get (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached Cmd Set</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.cmd_set</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT cmd_set (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached Current Connections</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.curr_connections</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT curr_connections (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached Current Items</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.curr_items</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT curr_items (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached Fill Ratio</name>
+                    <type>CALCULATED</type>
+                    <key>memcached.fill_ratio</key>
+                    <delay>5m</delay>
+                    <history>14d</history>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <params>100*last(&quot;memcached.bytes&quot;)/last(&quot;memcached.limit_maxbytes&quot;)</params>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&gt;80</expression>
+                            <name>Memcached serverfilled on {HOSTNAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Memcached Get Hits</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.get_hits</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT get_hits (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached Get Misses</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.get_misses</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT get_misses (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached Maximum Bytes</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.limit_maxbytes</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT limit_maxbytes (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached Miss Ratio</name>
+                    <type>CALCULATED</type>
+                    <key>memcached.miss_ratio</key>
+                    <delay>5m</delay>
+                    <history>14d</history>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <params>100*last(&quot;memcached.get_misses&quot;)/last(&quot;memcached.cmd_get&quot;)</params>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memcached stats</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>memcached.stats</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MATCHES_REGEX</type>
+                            <params>^STAT</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Memcached Uptime</name>
+                    <type>DEPENDENT</type>
+                    <key>memcached.uptime</key>
+                    <delay>0</delay>
+                    <history>14d</history>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>STAT uptime (.*)
+\1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>memcached.stats</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Memcached service is running</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>proc.num[memcached]</key>
+                    <applications>
+                        <application>
+                            <name>Memcached</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>Service Memcached is not running</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Memcached</name>
+            <width>500</width>
+            <graph_items>
+                <graph_item>
+                    <color>00AA00</color>
+                    <item>
+                        <host>Template App Memcached</host>
+                        <key>memcached.fill_ratio</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>AA0000</color>
+                    <item>
+                        <host>Template App Memcached</host>
+                        <key>memcached.miss_ratio</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
